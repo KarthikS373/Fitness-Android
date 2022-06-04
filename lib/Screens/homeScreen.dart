@@ -1,4 +1,8 @@
+import 'package:cultfit/Models/headerModel.dart';
+import 'package:cultfit/Models/optionModel.dart';
 import 'package:cultfit/Widgets/AppBar/homeAppBar.dart';
+import 'package:cultfit/Widgets/Content/scrollableCircularContents.dart';
+import 'package:cultfit/Widgets/Content/scrollableContentHeader.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           scrollOffset: _scrollOffset,
         ),
       ),
+      extendBodyBehindAppBar: true,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blueGrey,
         child: const Icon(Icons.add),
@@ -50,11 +55,19 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _scrollController,
         slivers: [
           SliverToBoxAdapter(
-            child: Container(
-              height: 1000,
-              color: Colors.blue,
+            child: ScrollableContentHeader(
+              featuredContent: contents[0],
             ),
-          )
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 25),
+            sliver: SliverToBoxAdapter(
+              child: ScrollableCircularContents(
+                title: "Features",
+                list: homeScreenOptions,
+              ),
+            ),
+          ),
         ],
       ),
     );
